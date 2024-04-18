@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <Windows.h>
+
+#define WIDTH 10
+#define HEIGHT 20
+
+int board[WIDTH][HEIGHT] = {0};
+int piece[4][4] = {0};
+int pieceX, pieceY;
+
+void newPiece() {
+    pieceX = WIDTH / 2 - 1;
+    pieceY = 0;
+    
+    // Example of a piece (L piece)
+    int newPiece[4][4] = {
+        {0, 0, 1, 0},
+        {1, 1, 1, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}
+    };
+
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            piece[i][j] = newPiece[i][j];
+}
+
+void drawBoard() {
+    system("cls");
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++) {
+            if (x == 0 || x == WIDTH - 1 || y == HEIGHT - 1)
+                printf("*");
+            else if (board[x][y] || (x >= pieceX && x < pieceX + 4 && y >= pieceY && y < pieceY + 4 && piece[x - pieceX][y - pieceY]))
+                printf("#");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    newPiece();
+    while (1) {
+        drawBoard();
+        Sleep(500); // Adjust game speed here
+        pieceY++;
+        if (pieceY + 4 > HEIGHT) {
+            // Piece reached the bottom, place it on the board
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    if (piece[i][j])
+                        board[pieceX + i][pieceY + j] = 1;
+            newPiece();
+        }
+        if (kbhit()) {
+            char key = getch();
+            if (key == 'a' && pieceX > 0)
+                pieceX--;
+            if (key == 'd' && pieceX < WIDTH - 4)
+                pieceX++;
+        }
+    }
+    return 0;
+}
