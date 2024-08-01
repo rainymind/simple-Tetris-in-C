@@ -29,7 +29,7 @@ void newPiece() {
 
 void drawBoard() {
     system("cls");
-    for (int y = 0; y < HEIGHT; y++) {
+    for (int y = 00; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
             if (x == 0 || x == WIDTH - 1 || y == HEIGHT - 1)
                 printf("*");
