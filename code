@@ -14,7 +14,7 @@ void newPiece() {
     pieceX = WIDTH / 2 - 1;
     pieceY = 0;
     
-    // Example of a piece (L piece) 0.2300
+    // Example of a piece (L piece) 0.2300000000000000000
     int newPiece[4][4] = {
         {0, 0, 1, 0},
         {1, 1, 1, 0},
